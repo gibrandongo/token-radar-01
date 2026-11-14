@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">TOKEN RADAR</div>
+  <p class="tagline">Pre-token protocol launches, ranked by implied value</p>
+  <p class="meta" id="meta"></p>
+</header>
+
+<main>
+  <section class="controls" aria-label="Filters">
+    <label>Search <input id="q" type="search" placeholder="protocol name or slug" autocomplete="off"></label>
+    <label>Category <select id="cat"><option value="">All categories</option></select></label>
+    <label>Chain <select id="chain"><option value="">All chains</option></select></label>
+    <label>Sort <select id="sort">
+      <option value="value">Implied value</option>
+      <option value="tvl">TVL</option>
+      <option value="growth">7-day growth</option>
+      <option value="age">Longest tracked</option>
+    </select></label>
+    <label class="check"><input id="watch" type="checkbox"> Watchlist only</label>
+  </section>
+
+  <p class="model" id="model"></p>
+
+  <section aria-label="Board">
+    <table id="board">
+      <thead><tr>
+        <th data-k="rank">Rank</th><th>Protocol</th><th>Category</th><th>Chains</th>
+        <th data-k="tvl">TVL</th><th data-k="chg">7d</th><th data-k="val">Implied value</th><th></th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="count" id="count"></p>
+  </section>
+
+  <section id="detail" aria-label="Protocol detail"></section>
+
+  <section aria-label="Already trading">
+    <h2>Already trading — not launch candidates</h2>
+    <p class="note">These protocols record a token that already trades, so they are not ranked for a launch. They are shown only so the board's separation is visible, and their market caps are the snapshot's own figures.</p>
+    <table id="trading">
+      <thead><tr><th>Protocol</th><th>Market cap</th><th>TVL</th></tr></thead>
+      <tbody id="tradingRows"></tbody>
+    </table>
+  </section>
+
+  <section aria-label="Method">
+    <h2>How the value is worked out</h2>
+    <p class="note">Implied value = TVL x category multiple x growth factor x age factor x chain factor. The category multiple is the median market-cap-to-TVL ratio of the snapshot's token-bearing protocols in the same category (the global median when a category has fewer than two), clamped to 0.02–3.0. Growth uses the 7-day TVL change, age uses the time since the protocol was first tracked, and chain count uses how many chains it runs on. Nothing here names a protocol by hand: the same program on a later snapshot would rank later launches on its own.</p>
+    <p class="note">“Records no token” means the snapshot carries neither a CoinGecko id nor a symbol for the protocol. That is the snapshot's record, never a claim that it has none. An implied value is this radar's own claim from the snapshot's figures, never a promise that a token will launch or what it will be worth.</p>
+  </section>
+</main>
+<footer>Token Radar — built from a frozen DeFiLlama protocol snapshot. Data as of <span id="asof"></span>.</footer>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
